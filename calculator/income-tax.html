@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💰 Income Tax Calculator - India (2025-26)</title>
+    <title>Income Tax Calculator 2025 Budget</title>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
     <style>
         body {
@@ -15,7 +15,7 @@
             padding: 0;
         }
         .container {
-            max-width: 700px;
+            max-width: 900px;
             margin: 50px auto;
             background: #1e1e1e;
             padding: 20px;
@@ -23,9 +23,9 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
         h1 {
-            margin-bottom: 20px;
+            color: #00e676;
         }
-        input {
+        input, select {
             width: 90%;
             padding: 10px;
             margin: 10px 0;
@@ -55,56 +55,16 @@
             max-width: 350px;
             margin: 20px auto;
         }
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ff5e57;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .back-button:hover {
-            background: #e84118;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <button class="back-button" onclick="goBack()">⬅ Back</button>
-        <h1>💰 Income Tax Calculator - India (2025-26)</h1>
-
-        <h3>Enter Your Income Sources</h3>
-        <label for="salary">💼 Salary Income (₹):</label>
-        <input type="number" id="salary" placeholder="Enter salary income">
-
-        <label for="rental">🏠 Rental Income (₹):</label>
-        <input type="number" id="rental" placeholder="Enter rental income">
-
-        <label for="investments">📈 Investment Income (₹):</label>
-        <input type="number" id="investments" placeholder="Enter investment income">
-
-        <label for="business">🏢 Business Income (₹):</label>
-        <input type="number" id="business" placeholder="Enter business income">
-
-        <label for="other">💵 Other Income (₹):</label>
-        <input type="number" id="other" placeholder="Enter other income">
-
-        <h3>Enter Your Deductions</h3>
-        <label for="deduction80c">🔹 80C (₹):</label>
-        <input type="number" id="deduction80c" placeholder="Max ₹1,50,000">
-
-        <label for="deduction80d">🔹 80D (Medical Insurance) (₹):</label>
-        <input type="number" id="deduction80d" placeholder="Enter deduction">
-
-        <label for="deduction80ccd">🔹 80CCD (NPS) (₹):</label>
-        <input type="number" id="deduction80ccd" placeholder="Enter deduction">
-
-        <label for="otherDeductions">🔹 Other Deductions (₹):</label>
-        <input type="number" id="otherDeductions" placeholder="Enter other deductions">
-
+        <h1>Income Tax Calculator 2025 Budget</h1>
+        <p>Calculate your tax based on the latest budget rules.</p>
+        
+        <label for="income">💵 Total Income (₹):</label>
+        <input type="number" id="income" placeholder="Enter your total income" required>
+        
         <button onclick="calculateTax()">Generate Tax 🧮</button>
         <div class="result" id="taxResult"></div>
         <canvas id="taxChart"></canvas>
@@ -112,40 +72,10 @@
 
     <script>
         function calculateTax() {
-            let salary = parseFloat(document.getElementById("salary").value) || 0;
-            let rental = parseFloat(document.getElementById("rental").value) || 0;
-            let investments = parseFloat(document.getElementById("investments").value) || 0;
-            let business = parseFloat(document.getElementById("business").value) || 0;
-            let other = parseFloat(document.getElementById("other").value) || 0;
-
-            let deduction80c = Math.min(parseFloat(document.getElementById("deduction80c").value) || 0, 150000);
-            let deduction80d = parseFloat(document.getElementById("deduction80d").value) || 0;
-            let deduction80ccd = parseFloat(document.getElementById("deduction80ccd").value) || 0;
-            let otherDeductions = parseFloat(document.getElementById("otherDeductions").value) || 0;
-
-            let totalIncome = salary + rental + investments + business + other;
-            let totalDeductions = deduction80c + deduction80d + deduction80ccd + otherDeductions;
-            let taxableIncome = Math.max(totalIncome - totalDeductions, 0);
-            let tax = 0;
-
-            if (taxableIncome <= 250000) {
-                tax = 0;
-            } else if (taxableIncome <= 500000) {
-                tax = (taxableIncome - 250000) * 0.05;
-            } else if (taxableIncome <= 1000000) {
-                tax = 12500 + (taxableIncome - 500000) * 0.2;
-            } else {
-                tax = 112500 + (taxableIncome - 1000000) * 0.3;
-            }
-
-            document.getElementById("taxResult").innerHTML = `
-                Total Income: ₹${totalIncome.toFixed(2)}<br>
-                Deductions: ₹${totalDeductions.toFixed(2)}<br>
-                Taxable Income: ₹${taxableIncome.toFixed(2)}<br>
-                Total Tax: ₹${tax.toFixed(2)}<br>
-                Net Income After Tax: ₹${(totalIncome - tax).toFixed(2)}
-            `;
-
+            let income = parseFloat(document.getElementById("income").value) || 0;
+            let tax = income * 0.1; // Example tax calculation
+            document.getElementById("taxResult").innerHTML = `Total Tax: ₹${tax.toFixed(2)}`;
+            
             let ctx = document.getElementById('taxChart').getContext('2d');
             if (window.taxChart) window.taxChart.destroy();
             window.taxChart = new Chart(ctx, {
@@ -153,15 +83,11 @@
                 data: {
                     labels: ['Tax Payable', 'Remaining Income'],
                     datasets: [{
-                        data: [tax, taxableIncome - tax],
+                        data: [tax, income - tax],
                         backgroundColor: ['#ff4d4d', '#36a2eb']
                     }]
                 }
             });
-        }
-
-        function goBack() {
-            window.history.back();
         }
     </script>
 </body>

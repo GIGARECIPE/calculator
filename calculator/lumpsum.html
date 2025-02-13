@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💸 Lumpsum Calculator</title>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+        button {
+            background: #00e676;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #00c853;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 350px;
+            margin: 20px auto;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff5e57;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background: #e84118;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goHome()">🏠 Home</button>
+        <h1>💸 Lumpsum Calculator</h1>
+        <p>Calculate the future value of your lumpsum investment.</p>
+        
+        <label for="investment">💰 Initial Investment (₹):</label>
+        <input type="number" id="investment" placeholder="Enter initial investment" required>
+        
+        <label for="rate">📊 Expected Annual Return Rate (%):</label>
+        <input type="number" id="rate" placeholder="Enter expected return rate" required>
+        
+        <label for="years">⏳ Investment Duration (Years):</label>
+        <input type="number" id="years" placeholder="Enter duration in years" required>
+        
+        <button onclick="calculateLumpsum()">Calculate Lumpsum 🧮</button>
+        <div class="result" id="lumpsumResult"></div>
+        <canvas id="lumpsumChart"></canvas>
+    </div>
+    
+    <script>
+        function calculateLumpsum() {
+            let investment = parseFloat(document.getElementById("investment").value) || 0;
+            let rate = parseFloat(document.getElementById("rate").value) || 0;
+            let years = parseInt(document.getElementById("years").value) || 0;
+            
+            let futureValue = investment * Math.pow((1 + rate / 100), years);
+            let interestEarned = futureValue - investment;
+            
+            document.getElementById("lumpsumResult").innerHTML = `Future Value: ₹${futureValue.toFixed(2)} <br> Interest Earned: ₹${interestEarned.toFixed(2)}`;
+            
+            let ctx = document.getElementById('lumpsumChart').getContext('2d');
+            if (window.myChart) window.myChart.destroy();
+            window.myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Initial Investment', 'Interest Earned'],
+                    datasets: [{
+                        data: [investment, interestEarned],
+                        backgroundColor: ['#36a2eb', '#ffce56']
+                    }]
+                }
+            });
+        }
+        
+        function goHome() {
+            window.location.href = "https://one-for-all-finance-calculator.onrender.com/";
+        }
+    </script>
+</body>
+</html>

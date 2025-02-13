@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 HRA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+        button {
+            background: #00e676;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #00c853;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff5e57;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background: #e84118;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goHome()">🏠 Home</button>
+        <h1>🏠 HRA Calculator</h1>
+        <p>Calculate your House Rent Allowance (HRA) exemption.</p>
+        
+        <label for="basicSalary">💰 Basic Salary (₹):</label>
+        <input type="number" id="basicSalary" placeholder="Enter basic salary" required>
+        
+        <label for="hraReceived">🏠 HRA Received (₹):</label>
+        <input type="number" id="hraReceived" placeholder="Enter HRA received" required>
+        
+        <label for="rentPaid">🏡 Rent Paid (₹):</label>
+        <input type="number" id="rentPaid" placeholder="Enter rent paid" required>
+        
+        <label for="metro">🏙️ Metro City?</label>
+        <select id="metro">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        
+        <button onclick="calculateHRA()">Calculate HRA 🧮</button>
+        <div class="result" id="hraResult"></div>
+    </div>
+    
+    <script>
+        function calculateHRA() {
+            let basicSalary = parseFloat(document.getElementById("basicSalary").value) || 0;
+            let hraReceived = parseFloat(document.getElementById("hraReceived").value) || 0;
+            let rentPaid = parseFloat(document.getElementById("rentPaid").value) || 0;
+            let metro = document.getElementById("metro").value === "yes";
+            
+            let hraExemption = Math.min(
+                hraReceived,
+                metro ? 0.5 * basicSalary : 0.4 * basicSalary,
+                rentPaid - (0.1 * basicSalary)
+            );
+            
+            document.getElementById("hraResult").innerHTML = `HRA Exempted: ₹${hraExemption.toFixed(2)}`;
+        }
+        
+        function goHome() {
+            window.location.href = "https://one-for-all-finance-calculator.onrender.com/";
+        }
+    </script>
+</body>
+</html>

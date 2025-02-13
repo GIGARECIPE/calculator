@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📮 Post Office Savings Calculator</title>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+        button {
+            background: #00e676;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #00c853;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 350px;
+            margin: 20px auto;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff5e57;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background: #e84118;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goHome()">🏠 Home</button>
+        <h1>📮 Post Office Savings Calculator</h1>
+        <p>Calculate your Post Office savings maturity amount.</p>
+        
+        <label for="principal">💰 Initial Deposit (₹):</label>
+        <input type="number" id="principal" placeholder="Enter deposit amount" required>
+        
+        <label for="rate">📊 Interest Rate (% per annum):</label>
+        <input type="number" id="rate" placeholder="Enter interest rate" required>
+        
+        <label for="tenure">⏳ Tenure (Years):</label>
+        <input type="number" id="tenure" placeholder="Enter tenure in years" required>
+        
+        <button onclick="calculatePostOffice()">Calculate Savings 🧮</button>
+        <div class="result" id="postOfficeResult"></div>
+        <canvas id="postOfficeChart"></canvas>
+    </div>
+    
+    <script>
+        function calculatePostOffice() {
+            let principal = parseFloat(document.getElementById("principal").value) || 0;
+            let rate = parseFloat(document.getElementById("rate").value) || 0;
+            let tenure = parseInt(document.getElementById("tenure").value) || 0;
+            
+            let maturityAmount = principal * Math.pow((1 + rate / 100), tenure);
+            let interestEarned = maturityAmount - principal;
+            
+            document.getElementById("postOfficeResult").innerHTML = `Maturity Amount: ₹${maturityAmount.toFixed(2)} <br> Interest Earned: ₹${interestEarned.toFixed(2)}`;
+            
+            let ctx = document.getElementById('postOfficeChart').getContext('2d');
+            if (window.myChart) window.myChart.destroy();
+            window.myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Initial Deposit', 'Interest Earned'],
+                    datasets: [{
+                        data: [principal, interestEarned],
+                        backgroundColor: ['#36a2eb', '#ffce56']
+                    }]
+                }
+            });
+        }
+        
+        function goHome() {
+            window.location.href = "https://one-for-all-finance-calculator.onrender.com/";
+        }
+    </script>
+</body>
+</html>

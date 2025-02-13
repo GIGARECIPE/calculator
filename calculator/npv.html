@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 NPV Calculator</title>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+        button {
+            background: #00e676;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #00c853;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 350px;
+            margin: 20px auto;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff5e57;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background: #e84118;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goHome()">🏠 Home</button>
+        <h1>📊 NPV Calculator</h1>
+        <p>Calculate the Net Present Value (NPV) of an investment.</p>
+        
+        <label for="initialInvestment">💰 Initial Investment (₹):</label>
+        <input type="number" id="initialInvestment" placeholder="Enter initial investment" required>
+        
+        <label for="discountRate">📉 Discount Rate (% per year):</label>
+        <input type="number" id="discountRate" placeholder="Enter discount rate" required>
+        
+        <label for="cashFlows">📈 Future Cash Flows (comma separated):</label>
+        <input type="text" id="cashFlows" placeholder="Enter cash flows" required>
+        
+        <button onclick="calculateNPV()">Calculate NPV 🧮</button>
+        <div class="result" id="npvResult"></div>
+        <canvas id="npvChart"></canvas>
+    </div>
+    
+    <script>
+        function calculateNPV() {
+            let initialInvestment = parseFloat(document.getElementById("initialInvestment").value) || 0;
+            let discountRate = parseFloat(document.getElementById("discountRate").value) || 0;
+            let cashFlows = document.getElementById("cashFlows").value.split(',').map(Number);
+            let npv = -initialInvestment;
+            
+            for (let i = 0; i < cashFlows.length; i++) {
+                npv += cashFlows[i] / Math.pow(1 + discountRate / 100, i + 1);
+            }
+            
+            document.getElementById("npvResult").innerHTML = `Net Present Value (NPV): ₹${npv.toFixed(2)}`;
+            
+            let ctx = document.getElementById('npvChart').getContext('2d');
+            if (window.myChart) window.myChart.destroy();
+            window.myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Initial Investment', 'Total Cash Flows'],
+                    datasets: [{
+                        data: [-initialInvestment, npv + initialInvestment],
+                        backgroundColor: ['#ff6384', '#36a2eb']
+                    }]
+                }
+            });
+        }
+        
+        function goHome() {
+            window.location.href = "https://one-for-all-finance-calculator.onrender.com/";
+        }
+    </script>
+</body>
+</html>

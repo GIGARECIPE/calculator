@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏦 RD Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+        button {
+            background: #00e676;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #00c853;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff5e57;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background: #e84118;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goHome()">🏠 Home</button>
+        <h1>🏦 RD Calculator</h1>
+        <p>Calculate your Recurring Deposit (RD) maturity amount.</p>
+        
+        <label for="monthlyDeposit">💰 Monthly Deposit (₹):</label>
+        <input type="number" id="monthlyDeposit" placeholder="Enter monthly RD amount" required>
+        
+        <label for="rate">📊 Interest Rate (% per annum):</label>
+        <input type="number" id="rate" placeholder="Enter interest rate" required>
+        
+        <label for="months">⏳ Duration (Months):</label>
+        <input type="number" id="months" placeholder="Enter RD tenure in months" required>
+        
+        <button onclick="calculateRD()">Calculate RD 🧮</button>
+        <div class="result" id="rdResult"></div>
+    </div>
+    
+    <script>
+        function calculateRD() {
+            let monthlyDeposit = parseFloat(document.getElementById("monthlyDeposit").value) || 0;
+            let rate = parseFloat(document.getElementById("rate").value) || 0;
+            let months = parseInt(document.getElementById("months").value) || 0;
+            let ratePerMonth = rate / (12 * 100);
+            
+            let totalAmount = 0;
+            for (let i = 0; i < months; i++) {
+                totalAmount = (totalAmount + monthlyDeposit) * (1 + ratePerMonth);
+            }
+            let interestEarned = totalAmount - (monthlyDeposit * months);
+            
+            document.getElementById("rdResult").innerHTML = `Total Maturity Amount: ₹${totalAmount.toFixed(2)} <br> Interest Earned: ₹${interestEarned.toFixed(2)}`;
+        }
+        
+        function goHome() {
+            window.location.href = "https://one-for-all-finance-calculator.onrender.com/";
+        }
+    </script>
+</body>
+</html>

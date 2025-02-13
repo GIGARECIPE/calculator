@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 Down Payment Calculator</title>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+        button {
+            background: #00e676;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #00c853;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 350px;
+            margin: 20px auto;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff5e57;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background: #e84118;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goHome()">🏠 Home</button>
+        <h1>🚗 Down Payment Calculator</h1>
+        <p>Calculate the down payment and loan amount for your purchase.</p>
+        
+        <label for="totalCost">💰 Total Cost (₹):</label>
+        <input type="number" id="totalCost" placeholder="Enter total cost" required>
+        
+        <label for="downPaymentPercent">📉 Down Payment Percentage (%):</label>
+        <input type="number" id="downPaymentPercent" placeholder="Enter down payment percentage" required>
+        
+        <button onclick="calculateDownPayment()">Calculate Down Payment 🧮</button>
+        <div class="result" id="downPaymentResult"></div>
+        <canvas id="downPaymentChart"></canvas>
+    </div>
+    
+    <script>
+        function calculateDownPayment() {
+            let totalCost = parseFloat(document.getElementById("totalCost").value) || 0;
+            let downPaymentPercent = parseFloat(document.getElementById("downPaymentPercent").value) || 0;
+            
+            let downPayment = (totalCost * downPaymentPercent) / 100;
+            let loanAmount = totalCost - downPayment;
+            
+            document.getElementById("downPaymentResult").innerHTML = `Down Payment: ₹${downPayment.toFixed(2)} <br> Loan Amount: ₹${loanAmount.toFixed(2)}`;
+            
+            let ctx = document.getElementById('downPaymentChart').getContext('2d');
+            if (window.myChart) window.myChart.destroy();
+            window.myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Down Payment', 'Loan Amount'],
+                    datasets: [{
+                        data: [downPayment, loanAmount],
+                        backgroundColor: ['#36a2eb', '#ffce56']
+                    }]
+                }
+            });
+        }
+        
+        function goHome() {
+            window.location.href = "https://one-for-all-finance-calculator.onrender.com/";
+        }
+    </script>
+</body>
+</html>

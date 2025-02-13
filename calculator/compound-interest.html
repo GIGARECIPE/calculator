@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 Compound Interest Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+        button {
+            background: #00e676;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #00c853;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff5e57;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background: #e84118;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goHome()">🏠 Home</button>
+        <h1>💰 Compound Interest Calculator</h1>
+        <p>Calculate compound interest based on principal, rate, time, and frequency.</p>
+        
+        <label for="principal">💵 Principal Amount (₹):</label>
+        <input type="number" id="principal" placeholder="Enter principal amount" required>
+        
+        <label for="rate">📊 Annual Interest Rate (%):</label>
+        <input type="number" id="rate" placeholder="Enter interest rate" required>
+        
+        <label for="time">⏳ Time Period (Years):</label>
+        <input type="number" id="time" placeholder="Enter time period" required>
+        
+        <label for="frequency">🔄 Compounding Frequency:</label>
+        <select id="frequency">
+            <option value="1">Annually</option>
+            <option value="2">Semi-Annually</option>
+            <option value="4">Quarterly</option>
+            <option value="12">Monthly</option>
+            <option value="365">Daily</option>
+        </select>
+        
+        <button onclick="calculateCompoundInterest()">Calculate Interest 🧮</button>
+        <div class="result" id="interestResult"></div>
+    </div>
+    
+    <script>
+        function calculateCompoundInterest() {
+            let principal = parseFloat(document.getElementById("principal").value) || 0;
+            let rate = parseFloat(document.getElementById("rate").value) || 0;
+            let time = parseFloat(document.getElementById("time").value) || 0;
+            let frequency = parseInt(document.getElementById("frequency").value);
+            
+            let amount = principal * Math.pow((1 + (rate / (100 * frequency))), (frequency * time));
+            let interest = amount - principal;
+            
+            document.getElementById("interestResult").innerHTML = `Compound Interest: ₹${interest.toFixed(2)} <br> Total Amount: ₹${amount.toFixed(2)}`;
+        }
+        
+        function goHome() {
+            window.location.href = "https://one-for-all-finance-calculator.onrender.com/"; // Replace with home page URL
+        }
+    </script>
+</body>
+</html>

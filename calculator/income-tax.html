@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💰 Income Tax Calculator (India - Budget 2025-26)</title>
+    <title>💰 Income Tax Calculator</title>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
     <style>
         body {
@@ -21,12 +21,11 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            position: relative;
         }
         h1 {
             margin-bottom: 20px;
         }
-        input, select {
+        input {
             width: 90%;
             padding: 10px;
             margin: 10px 0;
@@ -56,89 +55,52 @@
             max-width: 350px;
             margin: 20px auto;
         }
-        .blog {
-            background: #222;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            text-align: left;
-        }
-        .blog h2 {
-            color: #00e676;
-        }
-        .back-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ff5e57;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .back-button:hover {
-            background: #e84118;
-        }
     </style>
 </head>
 <body>
-    <div class="container" id="incomeSection">
-        <button class="back-button" onclick="goHome()">🏠 Home</button>
-        <h1>💰 Income Tax Calculator (India - Budget 2025-26)</h1>
-        <p>Enter your income details.</p>
-        
-        <label for="salary">💼 Income from Salary (₹):</label>
-        <input type="number" id="salary" placeholder="Enter salary income" required>
-        
-        <label for="interest">🏦 Income from Interest (₹):</label>
-        <input type="number" id="interest" placeholder="Enter interest income" required>
-        
-        <label for="rental">🏠 Rental Income Received (₹):</label>
-        <input type="number" id="rental" placeholder="Enter rental income" required>
-        
-        <label for="digital">🪙 Income from Digital Assets (₹):</label>
-        <input type="number" id="digital" placeholder="Enter digital asset income" required>
-        
-        <label for="basicDeduction">🔹 Basic Deductions - 80C (₹):</label>
-        <input type="number" id="basicDeduction" placeholder="Enter 80C deduction">
-        
-        <label for="medicalInsurance">🏥 Medical Insurance - 80D (₹):</label>
-        <input type="number" id="medicalInsurance" placeholder="Enter 80D deduction">
-        
-        <label for="housingLoan">🏡 Interest on Housing Loan - 80EEA (₹):</label>
-        <input type="number" id="housingLoan" placeholder="Enter 80EEA deduction">
-        
-        <label for="npsEmployer">🏦 Employer’s Contribution to NPS - 80CCD(2) (₹):</label>
-        <input type="number" id="npsEmployer" placeholder="Enter 80CCD(2) deduction">
-        
+    <div class="container">
+        <h1>💰 Income Tax Calculator</h1>
+        <p>Calculate your tax based on your income.</p>
+
+        <label for="income">💵 Total Income (₹):</label>
+        <input type="number" id="income" placeholder="Enter your total income" required>
+
         <button onclick="calculateTax()">Generate Tax 🧮</button>
-    </div>
-    
-    <div class="container" id="resultSection" style="display:none;">
-        <button class="back-button" onclick="goBack()">🔙 Back</button>
-        <h1>📊 Tax Calculation Result</h1>
         <div class="result" id="taxResult"></div>
         <canvas id="taxChart"></canvas>
-        <div class="blog">
-            <h2>📢 Latest Tax Updates</h2>
-            <p>The basic exemption limit has increased to ₹4,00,000. A rebate under Section 87A is available for individuals with taxable income up to ₹12,00,000. New tax slabs apply to different income groups.</p>
-        </div>
     </div>
-    
+
     <script>
         function calculateTax() {
-            document.getElementById("incomeSection").style.display = "none";
-            document.getElementById("resultSection").style.display = "block";
-        }
-        
-        function goBack() {
-            document.getElementById("incomeSection").style.display = "block";
-            document.getElementById("resultSection").style.display = "none";
-        }
-        
-        function goHome() {
-            window.location.href = "https://one-for-all-finance-calculator.onrender.com/"; // Replace with home page URL
+            let income = parseFloat(document.getElementById("income").value) || 0;
+            let tax = 0;
+
+            // Example: Apply tax slabs (modify as per India’s 2025-26 budget rules)
+            if (income <= 250000) {
+                tax = 0; 
+            } else if (income <= 500000) {
+                tax = (income - 250000) * 0.05;
+            } else if (income <= 1000000) {
+                tax = 12500 + (income - 500000) * 0.2;
+            } else {
+                tax = 112500 + (income - 1000000) * 0.3;
+            }
+
+            document.getElementById("taxResult").innerHTML = `Total Tax: ₹${tax.toFixed(2)} <br> Net Income: ₹${(income - tax).toFixed(2)}`;
+
+            // Generate Donut Chart
+            let ctx = document.getElementById('taxChart').getContext('2d');
+            if (window.taxChart) window.taxChart.destroy();
+            window.taxChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Tax Payable', 'Remaining Income'],
+                    datasets: [{
+                        data: [tax, income - tax],
+                        backgroundColor: ['#ff4d4d', '#36a2eb']
+                    }]
+                }
+            });
         }
     </script>
 </body>

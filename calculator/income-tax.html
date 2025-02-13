@@ -3,89 +3,683 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Income Tax Calculator 2025 Budget</title>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <title>TaxSaarthi - Income Tax Calculator India 🇮🇳</title>
+    <link rel="icon" href="data:,">  <!-- Fixes favicon error -->
     <style>
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
-            background: #121212;
-            color: #ffffff;
-            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            background: linear-gradient(to bottom, #f0f8ff, #e6f7ff); /* Light, Apphilling Background */
+            color: #333;  /* Darker text for better readability */
+            overflow-x: hidden;
         }
+
         .container {
-            max-width: 900px;
-            margin: 50px auto;
-            background: #1e1e1e;
+            width: 80%;
+            max-width: 960px;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white for content area */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Site Name Style */
+        h1 {
+            background-color: #2e8b57; /* Sea Green */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            font-family: 'Arial Black', sans-serif; /* Elegant font */
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h2, h3 {
+            color: #2e8b57; /* Sea Green */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Styles */
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #2e8b57;
+            outline: none;
+            box-shadow: 0 0 5px rgba(46, 139, 87, 0.3);
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #2e8b57; /* Sea Green */
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #3cb371; /* Medium Sea Green */
+            color: #fff;
+        }
+
+        /* Results Styles */
+        .results {
+            margin-top: 30px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Result Row Styles */
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .result-value {
+            color: #333;
+        }
+
+        /* Tab Styles */
+        .tab-container {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .tab-button {
+            padding: 12px 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px 8px 0 0;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            margin-right: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            color: #555;
+        }
+
+        .tab-button.active {
+            background-color: #2e8b57; /* Sea Green */
+            color: #fff;
+            border-bottom: 1px solid #2e8b57;
+        }
+
+        .tab-content {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 0 8px 8px 8px;
+            display: none;
+            color: #333;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Disclaimer and Assumptions Styles */
+        .disclaimer,
+        .assumptions {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        /* Blog Styles */
+        .blog-section {
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .blog-article {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f0f0f0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-right: 20px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-content h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1.3em;
+            color: #333;
+        }
+
+        .blog-content p {
+            margin-bottom: 0;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .tab-button {
+                padding: 10px 18px;
+            }
+
+            .blog-article {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .blog-image {
+                margin: 0 auto 15px;
+                width: 100px;
+                height: 100px;
+            }
+
+            h1 {
+                font-size: 1.7em;  /* Adjust heading size for smaller screens */
+            }
+        }
+
+        /* Chart Styles */
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 250px; /* Adjust as needed */
+            width: 250px;  /* Adjust as needed */
+        }
+
+        /* Processing Sign Styles */
+        #processingSign {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
-        h1 {
-            color: #00e676;
-        }
-        input, select {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: none;
-            background: #333;
-            color: white;
-        }
-        button {
-            background: #00e676;
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background: #00c853;
-        }
-        .result {
-            margin-top: 20px;
+            z-index: 1000;
             font-size: 1.2em;
         }
-        .chart-container {
-            width: 100%;
-            max-width: 350px;
-            margin: 20px auto;
+
+        /* Emoji Styles */
+        .emoji {
+            font-size: 1.2em;
+            margin-left: 5px;
         }
+
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Income Tax Calculator 2025 Budget</h1>
-        <p>Calculate your tax based on the latest budget rules.</p>
-        
-        <label for="income">💵 Total Income (₹):</label>
-        <input type="number" id="income" placeholder="Enter your total income" required>
-        
-        <button onclick="calculateTax()">Generate Tax 🧮</button>
-        <div class="result" id="taxResult"></div>
-        <canvas id="taxChart"></canvas>
-    </div>
 
+    <div id="processingSign">Calculating... <span class="emoji">⏳</span></div>
+
+    <div class="container">
+        <h1>TaxSaarthi <span class="emoji">🇮🇳</span></h1>
+        <p>Your guide to navigating Indian income tax. Estimate your tax liability under New vs. Old Regime for FY 2025-26 (AY 2026-27). <span class="emoji">📊</span></p>
+
+        <form id="taxForm">
+
+            <h2>Personal Information (Optional) <span class="emoji">👤</span></h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="residentialStatus">Residential Status:</label>
+            <select id="residentialStatus" name="residentialStatus" required>
+                <option value="resident">Resident</option>
+                <option value="nri">Non-Resident Indian (NRI)</option>
+            </select>
+
+            <label for="taxRegime">Opted for New Tax Regime? <span class="emoji">❓</span></label>
+            <select id="taxRegime" name="taxRegime" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+
+            <h2>Income Details <span class="emoji">💰</span></h2>
+            <h3>Income from Salary <span class="emoji">💼</span></h3>
+            <label for="basicSalary">Basic Salary:</label>
+            <input type="number" id="basicSalary" name="basicSalary" value="0" required>
+
+            <label for="dearnessAllowance">Dearness Allowance (DA):</label>
+            <input type="number" id="dearnessAllowance" name="dearnessAllowance" value="0" required>
+
+            <label for="houseRentAllowance">House Rent Allowance (HRA):</label>
+            <input type="number" id="houseRentAllowance" name="houseRentAllowance" value="0" required>
+
+            <label for="leaveTravelAllowance">Leave Travel Allowance (LTA):</label>
+            <input type="number" id="leaveTravelAllowance" name="leaveTravelAllowance" value="0" required>
+
+            <label for="otherAllowances">Other Allowances (Specify):</label>
+            <input type="number" id="otherAllowances" name="otherAllowances" value="0">
+
+            <label for="pfContribution">Provident Fund (PF) Contribution (Employee):</label>
+            <input type="number" id="pfContribution" name="pfContribution" value="0" required>
+
+            <label for="professionalTax">Professional Tax:</label>
+            <input type="number" id="professionalTax" name="professionalTax" value="0" required>
+
+            <h3>Income from House Property <span class="emoji">🏠</span></h3>
+            <label for="annualValue">Annual Value (Gross Rent - Municipal Taxes):</label>
+            <input type="number" id="annualValue" name="annualValue" value="0" required>
+
+            <label for="municipalTaxesPaid">Municipal Taxes Paid:</label>
+            <input type="number" id="municipalTaxesPaid" name="municipalTaxesPaid" value="0" required>
+
+            <label for="homeLoanInterest">Interest Paid on Home Loan:</label>
+            <input type="number" id="homeLoanInterest" name="homeLoanInterest" value="0" required>
+
+            <h3>Income from Business or Profession <span class="emoji">📈</span></h3>
+            <label for="businessRevenue">Revenue/Gross Receipts:</label>
+            <input type="number" id="businessRevenue" name="businessRevenue" value="0" required>
+
+            <label for="businessExpenses">Expenses:</label>
+            <input type="number" id="businessExpenses" name="businessExpenses" value="0" required>
+
+            <h3>Income from Capital Gains <span class="emoji">💹</span></h3>
+            <label for="stcg">Short-Term Capital Gains (STCG):</label>
+            <input type="number" id="stcg" name="stcg" value="0" required>
+
+            <label for="ltcg">Long-Term Capital Gains (LTCG):</label>
+            <input type="number" id="ltcg" name="ltcg" value="0" required>
+
+            <h3>Income from Other Sources <span class="emoji">💡</span></h3>
+            <label for="interestIncome">Interest Income (Savings Account, Fixed Deposits, etc.):</label>
+            <input type="number" id="interestIncome" name="interestIncome" value="0" required>
+
+            <label for="dividendIncome">Dividend Income:</label>
+            <input type="number" id="dividendIncome" name="dividendIncome" value="0" required>
+
+            <h3>Exempt Income <span class="emoji">🛡️</span></h3>
+            <label for="exemptInterestIncome">Interest From saving Account (upto 10,000):</label>
+            <input type="number" id="exemptInterestIncome" name="exemptInterestIncome" value="0" required>
+
+            <h2>Deductions (Old Regime Only) <span class="emoji">➖</span></h2>
+            <h3>Chapter VI-A Deductions</h3>
+            <label for="80C">80C: Investments in LIC, PPF, EPF, NSC, etc. (up to ₹1.5 lakh):</label>
+            <input type="number" id="80C" name="80C" value="0">
+
+            <label for="80CCC">80CCC: Contribution to Pension Funds:</label>
+            <input type="number" id="80CCC" name="80CCC" value="0">
+
+            <label for="80CCD1">80CCD(1): Contribution to NPS (National Pension System):</label>
+            <input type="number" id="80CCD1" name="80CCD1" value="0">
+
+            <label for="80CCD1B">80CCD(1B): Additional deduction for NPS (up to ₹50,000):</label>
+            <input type="number" id="80CCD1B" name="80CCD1B" value="0">
+
+            <label for="80CCD2">80CCD(2): Employer's Contribution to NPS:</label>
+            <input type="number" id="80CCD2" name="80CCD2" value="0">
+
+            <label for="80D">80D: Medical Insurance Premium:</label>
+            <input type="number" id="80D" name="80D" value="0">
+
+            <label for="80E">80E: Interest on Education Loan:</label>
+            <input type="number" id="80E" name="80E" value="0">
+
+            <label for="80G">80G: Donations:</label>
+            <input type="number" id="80G" name="80G" value="0">
+
+            <label for="80GG">80GG: Rent Paid (if HRA not received):</label>
+            <input type="number" id="80GG" name="80GG" value="0">
+
+            <label for="80TTA">80TTA/80TTB: Interest on Savings Account (TTA: up to ₹10,000, TTB: Senior Citizens - up to ₹50,000):</label>
+            <input type="number" id="80TTA" name="80TTA" value="0">
+
+            <button type="button" onclick="calculateTax()">Calculate Tax <span class="emoji">🧮</span></button>
+        </form>
+
+        <div class="results">
+            <div class="tab-container">
+                <div class="tab-button active" onclick="openTab('newRegime')">New Tax Regime</div>
+                <div class="tab-button" onclick="openTab('oldRegime')">Old Tax Regime</div>
+            </div>
+
+            <div id="newRegime" class="tab-content active">
+                <h3>New Tax Regime</h3>
+                <div class="result-row">
+                    <span class="result-label">Gross Total Income:</span>
+                    <span class="result-value" id="newRegimeGTI"></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Taxable Income:</span>
+                    <span class="result-value" id="newRegimeTaxableIncome"></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Tax Liability:</span>
+                    <span class="result-value" id="newRegimeTaxLiability"></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Cess:</span>
+                    <span class="result-value" id="newRegimeCess"></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Total Tax Payable:</span>
+                    <span class="result-value" id="newRegimeTotalTax"></span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="newRegimeChart"></canvas>
+                </div>
+            </div>
+
+            <div id="oldRegime" class="tab-content">
+                <h3>Old Tax Regime</h3>
+                <div class="result-row">
+                    <span class="result-label">Gross Total Income:</span>
+                    <span class="result-value" id="oldRegimeGTI"></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Total Deductions:</span>
+                    <span class="result-value" id="oldRegimeDeductions"></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Taxable Income:</span>
+                    <span class="result-value" id="oldRegimeTaxableIncome"></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Tax Liability:</span>
+                    <span class="result-value" id="oldRegimeTaxLiability"></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Cess:</span>
+                    <span class="result-value" id="oldRegimeCess"></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Total Tax Payable:</span>
+                    <span class="result-value" id="oldRegimeTotalTax"></span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="oldRegimeChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+         <div class="blog-section">
+            <h2>TaxSaarthi Blog <span class="emoji">📰</span></h2>
+            <div class="blog-article">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Nirmala_Sitharaman_addressing_press_conference.jpg/440px-Nirmala_Sitharaman_addressing_press_conference.jpg" alt="Nirmala Sitharaman" class="blog-image">
+                <div class="blog-content">
+                    <h3>Budget 2025: What to Expect? <span class="emoji">🔮</span></h3>
+                    <p>An insightful look into the potential tax reforms and key highlights expected in the upcoming Budget 2025, delivered by Finance Minister Nirmala Sitharaman.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+            <img src="https://via.placeholder.com/600x200/FFFFFF/000000?text=Union+Budget+2025" alt="Union Budget 2025" style="max-width: 100%; height: auto;">
+        </div>
+
+        <div class="assumptions">
+            <p><strong>Tax Slabs (Assumed for Budget 2025)</strong></p>
+            <p><strong>New Tax Regime:</strong></p>
+            <p>Up to ₹3,00,000: 0%</p>
+            <p>₹3,00,001 - ₹6,00,000: 5%</p>
+            <p>₹6,00,001 - ₹9,00,000: 10%</p>
+            <p>₹9,00,001 - ₹12,00,000: 15%</p>
+            <p>₹12,00,001 - ₹15,00,000: 20%</p>
+            <p>Above ₹15,00,000: 30%</p>
+        </div>
+        <p class="disclaimer">
+            Disclaimer: This tax calculator provides an estimate based on the information you provide and the assumed tax laws for Budget 2025. It is not a substitute for professional tax advice. Consult with a qualified tax advisor for personalized guidance. <span class="emoji">⚠️</span>
+        </p>
+    </div>
     <script>
+        // Helper function to format numbers as currency (Indian Rupees)
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR'
+            }).format(amount);
+        }
+
         function calculateTax() {
-            let income = parseFloat(document.getElementById("income").value) || 0;
-            let tax = income * 0.1; // Example tax calculation
-            document.getElementById("taxResult").innerHTML = `Total Tax: ₹${tax.toFixed(2)}`;
-            
-            let ctx = document.getElementById('taxChart').getContext('2d');
-            if (window.taxChart) window.taxChart.destroy();
-            window.taxChart = new Chart(ctx, {
+            // Show the processing sign
+            document.getElementById("processingSign").style.display = "block";
+
+            // Simulate a delay (e.g., 1.5 seconds)
+            setTimeout(function() {
+                // Hide the processing sign after the delay
+                document.getElementById("processingSign").style.display = "none";
+
+                // Get input values
+                const age = parseInt(document.getElementById("age").value);
+                const residentialStatus = document.getElementById("residentialStatus").value;
+                const taxRegime = document.getElementById("taxRegime").value;
+
+                const basicSalary = parseFloat(document.getElementById("basicSalary").value);
+                const dearnessAllowance = parseFloat(document.getElementById("dearnessAllowance").value);
+                const houseRentAllowance = parseFloat(document.getElementById("houseRentAllowance").value);
+                const leaveTravelAllowance = parseFloat(document.getElementById("leaveTravelAllowance").value);
+                const otherAllowances = parseFloat(document.getElementById("otherAllowances").value);
+                const pfContribution = parseFloat(document.getElementById("pfContribution").value);
+                const professionalTax = parseFloat(document.getElementById("professionalTax").value);
+
+                const annualValue = parseFloat(document.getElementById("annualValue").value);
+                const municipalTaxesPaid = parseFloat(document.getElementById("municipalTaxesPaid").value);
+                const homeLoanInterest = parseFloat(document.getElementById("homeLoanInterest").value);
+
+                const businessRevenue = parseFloat(document.getElementById("businessRevenue").value);
+                const businessExpenses = parseFloat(document.getElementById("businessExpenses").value);
+
+                const stcg = parseFloat(document.getElementById("stcg").value);
+                const ltcg = parseFloat(document.getElementById("ltcg").value);
+
+                const interestIncome = parseFloat(document.getElementById("interestIncome").value);
+                const dividendIncome = parseFloat(document.getElementById("dividendIncome").value);
+                const exemptInterestIncome = parseFloat(document.getElementById("exemptInterestIncome").value);
+
+                const deduction80C = parseFloat(document.getElementById("80C").value);
+                const deduction80CCC = parseFloat(document.getElementById("80CCC").value);
+                const deduction80CCD1 = parseFloat(document.getElementById("80CCD1").value);
+                const deduction80CCD1B = parseFloat(document.getElementById("80CCD1B").value);
+                const deduction80CCD2 = parseFloat(document.getElementById("80CCD2").value);
+                const deduction80D = parseFloat(document.getElementById("80D").value);
+                const deduction80E = parseFloat(document.getElementById("80E").value);
+                const deduction80G = parseFloat(document.getElementById("80G").value);
+                const deduction80GG = parseFloat(document.getElementById("80GG").value);
+                const deduction80TTA = parseFloat(document.getElementById("80TTA").value);
+
+                // Calculate New Regime Tax
+                const newRegimeGTI = basicSalary + dearnessAllowance + houseRentAllowance + leaveTravelAllowance + otherAllowances + annualValue - municipalTaxesPaid - homeLoanInterest + businessRevenue - businessExpenses + stcg + ltcg + interestIncome + dividendIncome - exemptInterestIncome;
+                const newRegimeTaxableIncome = newRegimeGTI; // No deductions allowed in new regime
+                let newRegimeTaxLiability = calculateNewRegimeTax(newRegimeTaxableIncome);
+                const newRegimeCess = newRegimeTaxLiability * 0.04;
+                const newRegimeTotalTax = newRegimeTaxLiability + newRegimeCess;
+
+                // Calculate Old Regime Tax
+                const oldRegimeGTI = basicSalary + dearnessAllowance + houseRentAllowance + leaveTravelAllowance + otherAllowances + annualValue - municipalTaxesPaid - homeLoanInterest + businessRevenue - businessExpenses + stcg + ltcg + interestIncome + dividendIncome - exemptInterestIncome;
+                const oldRegimeDeductions = deduction80C + deduction80CCC + deduction80CCD1 + deduction80CCD1B + deduction80CCD2 + deduction80D + deduction80E + deduction80G + deduction80GG + deduction80TTA;
+                const oldRegimeTaxableIncome = Math.max(0, oldRegimeGTI - oldRegimeDeductions);
+                let oldRegimeTaxLiability = calculateOldRegimeTax(oldRegimeTaxableIncome, age);
+                const oldRegimeCess = oldRegimeTaxLiability * 0.04;
+                const oldRegimeTotalTax = oldRegimeTaxLiability + oldRegimeCess;
+
+                // Update results in the HTML
+                document.getElementById("newRegimeGTI").innerText = formatCurrency(newRegimeGTI);
+                document.getElementById("newRegimeTaxableIncome").innerText = formatCurrency(newRegimeTaxableIncome);
+                document.getElementById("newRegimeTaxLiability").innerText = formatCurrency(newRegimeTaxLiability);
+                document.getElementById("newRegimeCess").innerText = formatCurrency(newRegimeCess);
+                document.getElementById("newRegimeTotalTax").innerText = formatCurrency(newRegimeTotalTax);
+
+                document.getElementById("oldRegimeGTI").innerText = formatCurrency(oldRegimeGTI);
+                document.getElementById("oldRegimeDeductions").innerText = formatCurrency(oldRegimeDeductions);
+                document.getElementById("oldRegimeTaxableIncome").innerText = formatCurrency(oldRegimeTaxableIncome);
+                document.getElementById("oldRegimeTaxLiability").innerText = formatCurrency(oldRegimeTaxLiability);
+                document.getElementById("oldRegimeCess").innerText = formatCurrency(oldRegimeCess);
+                document.getElementById("oldRegimeTotalTax").innerText = formatCurrency(oldRegimeTotalTax);
+
+                // Create or Update Charts
+                createDonutChart("newRegimeChart", newRegimeTaxLiability, newRegimeGTI - newRegimeTaxLiability);
+                createDonutChart("oldRegimeChart", oldRegimeTaxLiability, oldRegimeGTI - oldRegimeTaxLiability);
+
+
+            }, 1500);  // 1.5 second delay
+        }
+
+        function calculateNewRegimeTax(taxableIncome) {
+            let tax = 0;
+
+            if (taxableIncome <= 300000) {
+                tax = 0;
+            } else if (taxableIncome <= 600000) {
+                tax = (taxableIncome - 300000) * 0.05;
+            } else if (taxableIncome <= 900000) {
+                tax = 15000 + (taxableIncome - 600000) * 0.10;
+            } else if (taxableIncome <= 1200000) {
+                tax = 45000 + (taxableIncome - 900000) * 0.15;
+            } else if (taxableIncome <= 1500000) {
+                tax = 90000 + (taxableIncome - 1200000) * 0.20;
+            } else {
+                tax = 150000 + (taxableIncome - 1500000) * 0.30;
+            }
+
+            return tax;
+        }
+
+        function calculateOldRegimeTax(taxableIncome, age) {
+            let tax = 0;
+            let slab1Limit = 250000;
+            let slab2Limit = 500000;
+
+            if (age >= 60 && age < 80) {
+                slab1Limit = 300000;
+            } else if (age >= 80) {
+                slab1Limit = 500000;
+            }
+
+            if (taxableIncome <= slab1Limit) {
+                tax = 0;
+            } else if (taxableIncome <= slab2Limit) {
+                tax = (taxableIncome - slab1Limit) * 0.05;
+            } else if (taxableIncome <= 1000000) {
+                tax = 12500 + (taxableIncome - 500000) * 0.20;
+            } else {
+                tax = 112500 + (taxableIncome - 1000000) * 0.30;
+            }
+
+            return tax;
+        }
+
+        function openTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab-button[onclick="openTab('${tabId}')"]`).classList.add('active');
+        }
+
+        function createDonutChart(canvasId, tax, income) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+
+            // Destroy existing chart, if any
+            if (window[canvasId + 'Chart']) {
+                window[canvasId + 'Chart'].destroy();
+            }
+
+            window[canvasId + 'Chart'] = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Tax Payable', 'Remaining Income'],
+                    labels: ['Tax', 'Income'],
                     datasets: [{
-                        data: [tax, income - tax],
-                        backgroundColor: ['#ff4d4d', '#36a2eb']
+                        data: [tax, income],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)', // Tax color
+                            'rgba(54, 162, 235, 0.7)'  // Income color
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)'
+                        ],
+                        borderWidth: 1
                     }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#555'
+                            }
+                        },
+                        title: {
+                            display: false,
+                            text: 'Tax vs Income'
+                        }
+                    }
                 }
             });
         }

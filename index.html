@@ -3,28 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📊 All-in-One Calculator</title>
-    <link rel="stylesheet" href="/styles.css">
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-    <script defer src="/scripts.js"></script>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Finance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .calculator-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+        .calculator {
+            background: #333333;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+        .calculator:hover {
+            background: #444444;
+            transform: scale(1.05);
+        }
+        a {
+            text-decoration: none;
+            color: #00e676;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>📊 All-in-One Financial Calculators</h1>
-        <p>Select a calculator to get started:</p>
-        
+        <h1>Financial Calculators 💰</h1>
         <div class="calculator-list">
-            <a href="calculators/income-tax.html" class="calculator-item">💰 Income Tax Calculator</a>
-            <a href="calculators/sip-calculator.html" class="calculator-item">📈 SIP Calculator</a>
-            <a href="calculators/fd-calculator.html" class="calculator-item">🏦 Fixed Deposit Calculator</a>
-            <a href="calculators/emi-calculator.html" class="calculator-item">🚗 EMI Calculator</a>
-            <a href="calculators/crypto-tax.html" class="calculator-item">💰 Crypto Tax Calculator</a>
-            <a href="calculators/npv-calculator.html" class="calculator-item">📊 NPV Calculator</a>
-            <a href="calculators/sbi-ppf.html" class="calculator-item">🏦 SBI PPF Calculator</a>
-            <a href="calculators/kisan-vikas-patra.html" class="calculator-item">🌱 Kisan Vikas Patra Calculator</a>
-            <a href="calculators/post-office.html" class="calculator-item">📮 Post Office Calculator</a>
-            <a href="calculators/mortgage.html" class="calculator-item">🏡 Mortgage Calculator</a>
+            <div class="calculator"><a href="emi.html">💳 EMI Calculator</a></div>
+            <div class="calculator"><a href="income-tax.html">💰 Income Tax Calculator</a></div>
+            <div class="calculator"><a href="sip.html">📈 SIP Calculator</a></div>
+            <div class="calculator"><a href="pf.html">🏦 PF Calculator</a></div>
+            <div class="calculator"><a href="fd.html">💼 FD Calculator</a></div>
+            <div class="calculator"><a href="mutual-fund.html">📊 Mutual Fund Calculator</a></div>
+            <div class="calculator"><a href="retirement.html">🛡️ Retirement Planning</a></div>
+            <div class="calculator"><a href="compound-interest.html">🔢 Compound Interest Calculator</a></div>
+            <div class="calculator"><a href="hra.html">🏠 HRA Calculator</a></div>
+            <div class="calculator"><a href="salary.html">💵 Salary Calculator</a></div>
+            <div class="calculator"><a href="rd.html">📉 RD Calculator</a></div>
+            <div class="calculator"><a href="swp.html">🔄 SWP Calculator</a></div>
+            <div class="calculator"><a href="roi.html">📌 ROI Calculator</a></div>
+            <div class="calculator"><a href="nps.html">👴 NPS Calculator</a></div>
+            <div class="calculator"><a href="discount.html">💳 Discount Calculator</a></div>
+            <div class="calculator"><a href="lumpsum.html">💸 Lumpsum Calculator</a></div>
+            <div class="calculator"><a href="down-payment.html">🚗 Down Payment Calculator</a></div>
+            <div class="calculator"><a href="car-loan.html">🚘 Car Loan EMI Calculator</a></div>
+            <div class="calculator"><a href="mortgage.html">🏡 Mortgage Calculator</a></div>
+            <div class="calculator"><a href="npv.html">📊 NPV Calculator</a></div>
+            <div class="calculator"><a href="elss.html">📉 ELSS Calculator</a></div>
+            <div class="calculator"><a href="sbi-ppf.html">🏦 SBI PPF Calculator</a></div>
+            <div class="calculator"><a href="crypto-tax.html">🪙 Crypto Tax Calculator</a></div>
+            <div class="calculator"><a href="sbi-car-loan.html">🚙 SBI Car Loan EMI Calculator</a></div>
+            <div class="calculator"><a href="post-office.html">📮 Post Office Calculator</a></div>
+            <div class="calculator"><a href="cagr.html">📈 CAGR Calculator</a></div>
+            <div class="calculator"><a href="future-value.html">🔮 Future Value Calculator</a></div>
+            <div class="calculator"><a href="tax-saving.html">📉 Tax Saving Calculator</a></div>
+            <div class="calculator"><a href="depreciation.html">📉 Depreciation Calculator</a></div>
+            <div class="calculator"><a href="lease.html">📜 Lease Calculator</a></div>
         </div>
     </div>
 </body>

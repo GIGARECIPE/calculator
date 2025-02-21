@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BJ7S8JJ92J"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-BJ7S8JJ92J');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJ7S8JJ92J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BJ7S8JJ92J');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Calculators</title>
@@ -61,10 +60,70 @@
             font-weight: bold;
             font-size: 1.2em;
         }
+
+        /* About Us Button */
+        .about-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #00e676;
+            color: #121212;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .about-button:hover {
+            background: #00c764;
+        }
+
+        /* About Us Page */
+        .about-page {
+            display: none;
+            max-width: 900px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            text-align: left;
+        }
+        .about-page h2 {
+            color: #00e676;
+            margin-bottom: 15px;
+        }
+        .about-page p {
+            margin: 10px 0;
+        }
+        .about-page a {
+            color: #00e676;
+            text-decoration: underline;
+        }
+
+        /* Blog Section */
+        .blog-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #333333;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .blog-section h2 {
+            color: #00e676;
+            margin-bottom: 15px;
+        }
+        .blog-section p {
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- About Us Button -->
+    <div class="about-button" onclick="showAboutPage()">About Us</div>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
         <h1>Financial Calculators 💰</h1>
         <div class="calculator-list">
             <div class="calculator"><a href="calculator/emi.html">💳 EMI Calculator</a></div>
@@ -97,8 +156,51 @@
             <div class="calculator"><a href="calculator/tax-saving.html">📉 Tax Saving Calculator</a></div>
             <div class="calculator"><a href="calculator/depreciation.html">📉 Depreciation Calculator</a></div>
             <div class="calculator"><a href="calculator/lease.html">📜 Lease Calculator</a></div>
-<div class="calculator"><a href="calculator/personal-loan.html">📜 Personal Loan Calculator</a></div>
+            <div class="calculator"><a href="calculator/personal-loan.html">📜 Personal Loan Calculator</a></div>
         </div>
     </div>
+
+    <!-- About Us Page -->
+    <div class="about-page" id="aboutPage">
+        <h2>About Us</h2>
+        <p>📧 Email: <a href="www.shubhamverma.1239@gmail.com">www.shubhamverma.1239@gmail.com</a></p>
+        <p>📞 Phone: <a href="tel=+91 80949198xx">+91 80949198xx</a></p>
+        <p>🏢 Address: H.no 71 Saket Nagar,Jhalawar,Rajasthan,INDIA </p>
+
+        <!-- Blog Section -->
+        <div class="blog-section">
+            <h2>📝 Blog: Why Financial Calculators Matter</h2>
+            <p>
+                Financial calculators are essential tools for making informed decisions about your money. 
+                Whether you're planning for retirement, calculating loan EMIs, or investing in mutual funds, 
+                these calculators help you understand the numbers behind your financial goals. 
+                At Financial Calculators, we provide a wide range of tools to simplify your financial planning. 
+                From tax-saving strategies to investment growth projections, our calculators are designed to 
+                empower you with the knowledge you need to make smart financial choices.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Show About Page
+        function showAboutPage() {
+            const mainContainer = document.getElementById('mainContainer');
+            const aboutPage = document.getElementById('aboutPage');
+
+            // Hide main container and show About page
+            mainContainer.style.display = 'none';
+            aboutPage.style.display = 'block';
+        }
+
+        // Optional: Add a back button to return to the main page
+        function showMainPage() {
+            const mainContainer = document.getElementById('mainContainer');
+            const aboutPage = document.getElementById('aboutPage');
+
+            // Hide About page and show main container
+            aboutPage.style.display = 'none';
+            mainContainer.style.display = 'block';
+        }
+    </script>
 </body>
 </html>

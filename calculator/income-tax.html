@@ -11,8 +11,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #f0f8ff, #e6f7ff); /* Light, Apphilling Background */
-            color: #333;  /* Darker text for better readability */
+            background: #121212; /* Dark background */
+            color: #e0e0e0;  /* Light text for better readability */
             overflow-x: hidden;
         }
 
@@ -20,10 +20,10 @@
             width: 80%;
             max-width: 960px;
             margin: 20px auto;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white for content area */
+            background-color: #1e1e1e; /* Darker background for content area */
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
         }
@@ -41,6 +41,11 @@
             font-size: 2em;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        h1:hover {
+            background-color: #3cb371; /* Medium Sea Green */
         }
 
         h2, h3 {
@@ -57,7 +62,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
-            color: #555;
+            color: #e0e0e0;
         }
 
         input[type="number"],
@@ -66,12 +71,12 @@
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
             border-radius: 6px;
             box-sizing: border-box;
-            transition: border-color 0.3s ease;
-            background-color: #f9f9f9;
-            color: #333;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #2a2a2a;
+            color: #e0e0e0;
         }
 
         input[type="number"]:focus,
@@ -79,7 +84,7 @@
         select:focus {
             border-color: #2e8b57;
             outline: none;
-            box-shadow: 0 0 5px rgba(46, 139, 87, 0.3);
+            box-shadow: 0 0 5px rgba(46, 139, 87, 0.5);
         }
 
         /* Button Styles */
@@ -92,23 +97,27 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         button:hover {
             background-color: #3cb371; /* Medium Sea Green */
-            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
 
         /* Results Styles */
         .results {
             margin-top: 30px;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
             padding: 20px;
             border-radius: 8px;
-            background-color: #f5f5f5;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            background-color: #2a2a2a;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
         /* Result Row Styles */
@@ -117,7 +126,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #444;
         }
 
         .result-row:last-child {
@@ -126,11 +135,11 @@
 
         .result-label {
             font-weight: 600;
-            color: #555;
+            color: #e0e0e0;
         }
 
         .result-value {
-            color: #333;
+            color: #2e8b57; /* Sea Green */
         }
 
         /* Tab Styles */
@@ -141,14 +150,14 @@
 
         .tab-button {
             padding: 12px 25px;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
             border-radius: 8px 8px 0 0;
-            background-color: #f0f0f0;
+            background-color: #2a2a2a;
             cursor: pointer;
             margin-right: 5px;
             font-weight: 500;
             transition: background-color 0.3s ease, color 0.3s ease;
-            color: #555;
+            color: #e0e0e0;
         }
 
         .tab-button.active {
@@ -158,11 +167,11 @@
         }
 
         .tab-content {
-            border: 1px solid #ddd;
+            border: 1px solid #444;
             padding: 20px;
             border-radius: 0 8px 8px 8px;
             display: none;
-            color: #333;
+            color: #e0e0e0;
         }
 
         .tab-content.active {
@@ -173,7 +182,7 @@
         .disclaimer,
         .assumptions {
             font-size: 0.9em;
-            color: #777;
+            color: #888;
             margin-top: 20px;
             line-height: 1.6;
         }
@@ -182,7 +191,7 @@
         .blog-section {
             margin-top: 40px;
             padding: 20px;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #444;
         }
 
         .blog-article {
@@ -191,8 +200,13 @@
             margin-bottom: 20px;
             padding: 15px;
             border-radius: 8px;
-            background-color: #f0f0f0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #2a2a2a;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-article:hover {
+            transform: translateY(-5px);
         }
 
         .blog-image {
@@ -201,19 +215,19 @@
             border-radius: 50%;
             margin-right: 20px;
             object-fit: cover;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .blog-content h3 {
             margin-top: 0;
             margin-bottom: 8px;
             font-size: 1.3em;
-            color: #333;
+            color: #e0e0e0;
         }
 
         .blog-content p {
             margin-bottom: 0;
-            color: #555;
+            color: #888;
         }
 
         /* Responsive Design */
@@ -258,7 +272,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 20px;
             border-radius: 10px;
@@ -672,7 +686,7 @@
                         legend: {
                             position: 'bottom',
                             labels: {
-                                color: '#555'
+                                color: '#e0e0e0'
                             }
                         },
                         title: {
